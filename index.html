@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <!-- Content Security Policy (Secure by Design) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';">
+    <title>Alessandro Fischer | IT Career Dashboard & Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                        },
+                        etaRed: '#dc2626', // Accent for Swiss precision feel
+                        darkBg: '#0f172a',
+                        cardBg: '#1e293b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome with SRI Integrity -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #f1f5f9;
+        }
+        
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Glassmorphism effects */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 8px 25px -5px rgba(2, 132, 199, 0.15);
+        }
+
+        .eta-glow {
+            box-shadow: 0 0 20px -5px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0284c7;
+        }
+
+        /* Grid Background Pattern */
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-grid-pattern text-slate-100 flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <!-- Top Bar / ETA SA Banner -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-slate-800 bg-slate-900/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="h-9 w-9 rounded-lg bg-gradient-to-tr from-brand-600 to-cyan-400 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                    AF
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight text-white block leading-none">Alessandro Fischer</span>
+                    <span class="text-xs text-brand-400 font-mono">IT Specialist Dashboard</span>
+                </div>
+            </div>
+
+            <!-- Tailored Notice Badge for ETA SA -->
+            <div class="hidden md:flex items-center space-x-2 bg-slate-800/80 border border-slate-700/80 px-3 py-1.5 rounded-full text-xs">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="text-slate-300"><strong class="text-white">Hallo, ich bin Alessandro Fischer | IT Enthusiast aus der Schweiz</strong></span>
+            </div>
+
+            <!-- Action Quick Buttons -->
+            <div class="flex items-center space-x-2">
+                <button onclick="toggleTerminalModal()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-cyan-400 flex items-center space-x-2 transition-all">
+                    <i class="fa-solid me-1 fa-terminal"></i>
+                    <span class="hidden sm:inline">CLI Mode</span>
+                </button>
+                <a href="#contact" class="px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold transition-all shadow-md">
+                    Kontakt
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- Hero & Profile Section -->
+        <section class="relative rounded-2xl glass-panel p-6 sm:p-8 overflow-hidden">
+            <!-- Decorative Background Circuit Effect -->
+            <div class="absolute -right-16 -top-16 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute right-1/3 -bottom-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col lg:flex-row gap-8 items-start justify-between">
+                <!-- Profile Left Column -->
+                <div class="space-y-4 max-w-3xl">
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                        Systemadministrator & <br class="hidden sm:block">
+                        <span class="bg-gradient-to-r from-brand-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+                            Automations-Spezialist
+                        </span>
+                    </h1>
+
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Motivierter und praxisorientierter Quereinsteiger mit Fokus auf <strong class="text-white">Systemadministration, Netzwerke und Automatisierung</strong> als technisches Fundament. Leidenschaftlich darin, veraltete oder manuelle Abläufe in hochgradig effiziente, verlässliche Prozesse zu verwandeln.
+                    </p>
+
+                    <!-- Profile Key Bullet Points -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                        <div class="flex items-start space-x-2 text-xs sm:text-sm text-slate-300">
+                            <i class="fa-solid fa-graduation-cap text-brand-400 mt-1"></i>
+                            <span>Ausbildung zum <strong>ICT Power-User & Professional SIZ</strong></span>
+                        </div>
+                        <div class="flex items-start space-x-2 text-xs sm:text-sm text-slate-300">
+                            <i class="fa-solid fa-server text-brand-400 mt-1"></i>
+                            <span>Praxis in <strong>Active Directory, VMware & Scripting</strong></span>
+                        </div>
+                        <div class="flex items-start space-x-2 text-xs sm:text-sm text-slate-300">
+                            <i class="fa-solid fa-gears text-brand-400 mt-1"></i>
+                            <span>Erfahrung mit <strong>Security Ops & Prozessautomation</strong></span>
+                        </div>
+                        <div class="flex items-start space-x-2 text-xs sm:text-sm text-slate-300">
+                            <i class="fa-solid fa-microchip text-brand-400 mt-1"></i>
+                            <span>Kontinuierliches <strong>Homelab & Continuous Learning</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KPI Quick Cards / Swiss Precision Box
+                <div class="w-full lg:w-72 flex flex-col gap-3">
+                    <div class="bg-slate-900/90 border border-slate-700/70 rounded-xl p-4 space-y-3">
+                        <div class="text-xs uppercase font-mono text-slate-400 tracking-wider flex justify-between items-center">
+                            <span>Effizienz-Fokus</span>
+                            <i class="fa-solid fa-bolt text-amber-400"></i>
+                        </div>
+                        <div class="text-2xl font-extrabold text-white">~70–80%</div>
+                        <p class="text-xs text-slate-400">Zeitersparnis bei automatisierten Rapport- & Mail-Workflows.</p>
+                    </div>
+
+                    <div class="bg-slate-900/90 border border-slate-700/70 rounded-xl p-4 space-y-3">
+                        <div class="text-xs uppercase font-mono text-slate-400 tracking-wider flex justify-between items-center">
+                            <span>Homelab & Admin</span>
+                            <i class="fa-solid fa-network-wired text-cyan-400"></i>
+                        </div>
+                        <div class="text-lg font-bold text-white">Win Server 2025 + Linux</div>
+                        <p class="text-xs text-slate-400">AD DS, Hypervisor 2, DNS/DHCP, Scripting.</p>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-rocket text-brand-400"></i>
+                        <span>Projekte & Automatisierungen</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-400">Klicke auf eine Karte, um Problemstellung, Lösung und Ergebnisse detailliert einzusehen.</p>
+                </div>
+
+                <!-- Filters & Search -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <div class="relative flex-grow sm:flex-grow-0">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
+                        <input type="text" id="projectSearch" oninput="renderProjects()" placeholder="Projekt suchen..." class="w-full sm:w-48 bg-slate-900 border border-slate-700 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-brand-500 transition-all">
+                    </div>
+                    <div id="projectFilterTags" class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically Generated Cards -->
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="space-y-6">
+            <div>
+                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-cyan-400"></i>
+                    <span>Skills & Tech Stack</span>
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-400">Technologisches Fundament für Systemengineering und Automatisierung.</p>
+            </div>
+
+            <div id="skillsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4">
+                <!-- Dynamically Generated Skills -->
+            </div>
+        </section>
+
+        <!-- Ausbildungen & Zertifikate Section -->
+        <section id="education" class="space-y-6">
+            <div>
+                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-emerald-400"></i>
+                    <span>Ausbildungen & Zertifikate</span>
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-400">Kontinuierliche Weiterbildung und Nachweise im ICT-Umfeld.</p>
+            </div>
+
+            <div id="certGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Dynamically Generated Certs -->
+            </div>
+        </section>
+
+        <!-- ETA SA Application / Contact Section 
+        <section id="contact" class="rounded-2xl glass-panel p-6 sm:p-8 border border-slate-700/80 relative overflow-hidden">
+            <div class="max-w-3xl space-y-6">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+                    Kontakt
+                </h2>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    
+                </p>
+
+                <!-- Quick Contact Actions -->
+                 <!-- 
+                <div class="flex flex-wrap items-center gap-3 pt-2">
+                    <button id="copyEmailBtn" onclick="copyContactEmail()" class="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium flex items-center space-x-2 transition-all">
+                        <i class="fa-solid fa-envelope text-brand-400"></i>
+                        <span id="emailText">E-Mail kopieren</span>
+                    </button> 
+
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium flex items-center space-x-2 transition-all">
+                        <i class="fa-brands fa-linkedin text-cyan-400"></i>
+                        <span>LinkedIn Profil</span>
+                    </a>
+
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium flex items-center space-x-2 transition-all">
+                        <i class="fa-brands fa-github text-white"></i>
+                        <span>GitHub Repository</span>
+                    </a>
+                </div>
+            </div>
+        </section> -->
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 border-t border-slate-800 bg-slate-950 py-8 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                © 2026 Alessandro Fischer
+            </div>
+            <div class="flex items-center space-x-4">
+                <span>Hosted on GitHub Pages</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PROJECT DETAIL MODAL -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-all">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col">
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-slate-800 flex justify-between items-start sticky top-0 bg-slate-900/95 backdrop-blur z-10">
+                <div>
+                    <div id="modalBadges" class="flex flex-wrap gap-2 mb-2"></div>
+                    <h3 id="modalTitle" class="text-xl font-bold text-white"></h3>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-800 transition-all">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 space-y-6 text-sm">
+                <!-- Problem -->
+                <div class="space-y-2">
+                    <h4 class="font-bold text-red-400 flex items-center gap-2">
+                        <i class="fa-solid fa-thumbtack"></i>
+                        <span>Problemstellung</span>
+                    </h4>
+                    <p id="modalProblem" class="text-slate-300 leading-relaxed pl-6 border-l-2 border-red-500/40"></p>
+                </div>
+
+                <!-- Lösung -->
+                <div class="space-y-2">
+                    <h4 class="font-bold text-cyan-400 flex items-center gap-2">
+                        <i class="fa-solid fa-gears"></i>
+                        <span>Lösung</span>
+                    </h4>
+                    <ul id="modalSolution" class="list-disc list-inside text-slate-300 space-y-1 pl-2"></ul>
+                </div>
+
+                <!-- Ergebnis -->
+                <div class="space-y-2">
+                    <h4 class="font-bold text-emerald-400 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Ergebnis & Mehrwert</span>
+                    </h4>
+                    <ul id="modalResult" class="list-disc list-inside text-slate-300 space-y-1 pl-2"></ul>
+                </div>
+
+                <!-- Learnings -->
+                <div class="space-y-2">
+                    <h4 class="font-bold text-amber-400 flex items-center gap-2">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>Learnings & Key Takeaways</span>
+                    </h4>
+                    <ul id="modalLearnings" class="list-disc list-inside text-slate-300 space-y-1 pl-2"></ul>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-slate-800 bg-slate-950 flex justify-end">
+                <button onclick="closeModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold">
+                    Schliessen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CLI TERMINAL MODAL -->
+    <div id="terminalModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="bg-slate-950 border border-slate-800 rounded-xl w-full max-w-2xl font-mono text-xs text-slate-300 shadow-2xl overflow-hidden flex flex-col h-[450px]">
+            <!-- Terminal Header -->
+            <div class="bg-slate-900 px-4 py-2 flex items-center justify-between border-b border-slate-800">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-red-500 inline-block cursor-pointer" onclick="toggleTerminalModal()"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                    <span class="text-slate-400 text-xs ml-2">alessandro@fischer-syseng:~</span>
+                </div>
+                <span class="text-slate-500 text-[10px]">PowerShell v7.4</span>
+            </div>
+            
+            <!-- Terminal Output Area -->
+            <div id="terminalOutput" class="p-4 flex-grow overflow-y-auto space-y-2">
+                <p class="text-slate-400">Willkommen im IT System Engineering CLI Terminal von Alessandro Fischer.</p>
+                <p class="text-slate-500">Tippe <span class="text-cyan-400">'help'</span> für verfügbare Befehle.</p>
+            </div>
+
+            <!-- Terminal Input -->
+            <div class="p-2 bg-slate-900 border-t border-slate-800 flex items-center space-x-2">
+                <span class="text-emerald-400 pl-2">PS C:\Users\Alessandro&gt;</span>
+                <input type="text" id="terminalInput" class="bg-transparent text-white focus:outline-none flex-grow" placeholder="Befehl eingeben..." onkeydown="handleTerminalKey(event)">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           SECURITY & SANITIZATION UTILITIES (Secure by Design)
+           ========================================================================== */
+        function escapeHTML(str) {
+            if (typeof str !== 'string') return '';
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Anti-Scraping Email Assembler
+        const CONTACT_CFG = {
+            user: "alessandro.fischer",
+            domain: "domain.ch"
+        };
+
+        /* ==========================================================================
+           CENTRAL PORTFOLIO DATA
+           ========================================================================== */
+        const PORTFOLIO_DATA = {
+            projects: [
+                {
+                    id: "reporting-tool",
+                    title: "Automatisierte Reporting Management Tool",
+                    category: "Automation",
+                    status: "Done",
+                    tools: ["PowerShell", "Outlook", "Excel", "AI"],
+                    icon: "fa-solid fa-file-invoice-dollar",
+                    bgGradient: "from-blue-600 to-indigo-700",
+                    problem: "Die Verarbeitung und Verteilung von Werksrapporten im PSOC war manuell, zeitaufwendig und fehleranfällig (Dateinamen, Versand, Verteiler).",
+                    solution: [
+                        "Entwicklung eines PowerShell-Tools zur vollständigen Automatisierung des Rapport-Workflows.",
+                        "Automatische Erkennung und Verarbeitung von PDF-Reports.",
+                        "Standardisierte Namensgebung und strukturierte Archivierung.",
+                        "Dynamischer Versand basierend auf Excel-gesteuerter Verteilerlogik.",
+                        "Erstellung von Outlook-Mail-Drafts zur manuellen Freigabe."
+                    ],
+                    result: [
+                        "~70–80% Zeitsperre im Workflow erzielt.",
+                        "Deutliche Reduktion manueller Eingabefehler.",
+                        "Standardisierter, beliebig skalierbarer Prozess.",
+                        "Verbesserte Sicherheit durch Draft-basierte Freigabekontrolle."
+                    ],
+                    learnings: [
+                        "Menschliche Kontrolle bei Automationsprozessen erhöht die Akzeptanz & Sicherheit.",
+                        "Excel lässt sich effektiv als zentrale Konfigurations-Datenbank nutzen.",
+                        "PowerShell eignet sich hervorragend für komplexe File- und Mail-Automationen.",
+                        "Logging und sauberes Edge-Case-Handling sind entscheidend für stabile Systeme."
+                    ]
+                },
+                {
+                    id: "alarm-flow",
+                    title: "Automatisierter Alarm-Event Reporting Flow",
+                    category: "Automation",
+                    status: "Done",
+                    tools: ["MS Power Automate", "SharePoint"],
+                    icon: "fa-solid fa-bell",
+                    bgGradient: "from-cyan-600 to-blue-700",
+                    problem: "Alarmmeldungen wurden oft verspätet weitergeleitet und besaßen kein strukturiertes Nachverfolgungssystem.",
+                    solution: [
+                        "Implementierung eines automatischen Trigger-Workflows in MS Power Automate.",
+                        "Automatisches Erfassen von Alarm-Events in zentralen SharePoint-Listen.",
+                        "Echtzeit-Benachrichtigung der zuständigen Pikett-Spezialisten."
+                    ],
+                    result: [
+                        "Reaktionszeit bei kritischen Events um über 50% verkürzt.",
+                        "Lückenlose Dokumentation für spätere Audits."
+                    ],
+                    learnings: [
+                        "Nahtlose Integration von Power Automate mit Microsoft 365 Ökosystemen."
+                    ]
+                },
+                {
+                    id: "kontrollrundgang",
+                    title: "Automatisierter Kontrollrundgang-Flow",
+                    category: "Automation",
+                    status: "Done",
+                    tools: ["MS Power Automate", "SharePoint"],
+                    icon: "fa-solid fa-clipboard-check",
+                    bgGradient: "from-teal-600 to-emerald-700",
+                    problem: "Papierbasierte oder nicht-synchronisierte Kontrollrundgänge erschwerten die Nachvollziehbarkeit von Wartungen.",
+                    solution: [
+                        "Digitaler Erfassungsflow zur Übermittlung von Inspektionseinträgen direkt in SharePoint DBs.",
+                        "Automatische Benachrichtigungen bei Abweichungen von Soll-Werten."
+                    ],
+                    result: [
+                        "Vollständige Transparenz über den Zustand aller geprüften Einheiten.",
+                        "Schnellere Fehlerbehebung."
+                    ],
+                    learnings: [
+                        "Gute UX im Erfassungsformular erhöht die Datenqualität drastisch."
+                    ]
+                },
+                {
+                    id: "mail-db-processing",
+                    title: "Automatisierte Mail-zu-Datenbank Verarbeitung (Krankheits- & Betriebsunfälle)",
+                    category: "Automation",
+                    status: "Done",
+                    tools: ["MS Power Automate", "SharePoint", "Outlook", "Excel"],
+                    icon: "fa-solid fa-hospital-user",
+                    bgGradient: "from-sky-600 to-blue-800",
+                    problem: "Eingehende Krankheits- und Unfallmeldungen per Mail mussten händisch in Datenbanken übertragen werden.",
+                    solution: [
+                        "Parser-Flow zur Extraktion von relevanten Daten aus Mails.",
+                        "Direktes Schreiben in strukturierte Tabellen und SharePoint mit Zugriffsrechten."
+                    ],
+                    result: [
+                        "Reduzierter administrativer Aufwand für HR/Teamleiter.",
+                        "Erhöhter Datenschutz durch Automatisierung."
+                    ],
+                    learnings: [
+                        "Datenvalidierung vor dem Speichern verhindert korrumpierte Datensätze."
+                    ]
+                },
+                {
+                    id: "homelab-2025",
+                    title: "Windows Server 2025 – Domain & File Server Homelab (v1)",
+                    category: "Environment",
+                    status: "Hands-On Lab",
+                    tools: ["VMware Hypervisor", "Active Directory", "DNS/DHCP", "Group Policy"],
+                    icon: "fa-brands fa-windows",
+                    bgGradient: "from-blue-500 to-indigo-900",
+                    problem: "Notwendigkeit einer sicheren Testumgebung zur praxisnahen Vertiefung von Active Directory, GPOs und Multi-OS Vernetzung.",
+                    solution: [
+                        "Aufbau einer virtualisierten Umgebung mit VMware Workstation/Hypervisor 2.",
+                        "Konfiguration von Windows Server 2025 als Domain Controller mit AD DS, DNS und DHCP.",
+                        "Einrichtung von Berechtigungsstrukturen, File Shares und Gruppenrichtlinien (GPO)."
+                    ],
+                    result: [
+                        "Vollfunktionsfähiges Test-Lab zur Simulation echter Unternehmensnetzwerke.",
+                        "Praxisnahes Troubleshooting von Zertifikaten, DNS-Auflösungen und Berechtigungen."
+                    ],
+                    learnings: [
+                        "Tiefes Verständnis von AD-Hierarchien, DNS-Zonen und Rechtevergabe."
+                    ]
+                }
+            ],
+
+            skills: [
+                { name: "PowerShell", category: "Scripting & Automation", icon: "fa-terminal", level: "Fortgeschritten" },
+                { name: "Python", category: "Programming & Data", icon: "fa-brands fa-python", level: "Fortgeschritten" },
+                { name: "MS Power Automate", category: "Workflow Automation", icon: "fa-bolt", level: "Expert" },
+                { name: "Linux (Bash)", category: "OS & Server", icon: "fa-brands fa-linux", level: "Gute Kenntnisse" },
+                { name: "Windows Server & AD", category: "SysAdmin", icon: "fa-brands fa-windows", level: "Gute Kenntnisse" },
+                { name: "C#", category: "Programming", icon: "fa-code", level: "Grundkenntnisse" },
+                { name: "AI Prompt Engineering", category: "Productivity", icon: "fa-brain", level: "Fortgeschritten" },
+                { name: "Virtualisierung", category: "Infrastructure", icon: "fa-server", level: "Gute Kenntnisse" }
+            ],
+
+            certificates: [
+                {
+                    title: "ICT Power-User & Professional SIZ",
+                    status: "In Progress",
+                    issuer: "SIZ Schweiz",
+                    icon: "fa-graduation-cap",
+                    badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30"
+                },
+                {
+                    title: "Google Cybersecurity Professional Certificate",
+                    status: "Done",
+                    issuer: "Coursera / Google",
+                    icon: "fa-shield-halved",
+                    badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
+                },
+                {
+                    title: "TryHackMe Pre-Security Certificate",
+                    status: "Done",
+                    issuer: "TryHackMe",
+                    icon: "fa-user-ninja",
+                    badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
+                },
+                {
+                    title: "TCM Practical Help Desk Certificate",
+                    status: "Done",
+                    issuer: "TCM Security",
+                    icon: "fa-headset",
+                    badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
+                },
+                {
+                    title: "Python Data Structures",
+                    status: "Done",
+                    issuer: "University of Michigan",
+                    icon: "fa-brands fa-python",
+                    badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
+                },
+                {
+                    title: "Programming for Everybody (Python)",
+                    status: "Done",
+                    issuer: "University of Michigan",
+                    icon: "fa-code",
+                    badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
+                }
+            ]
+        };
+
+        let activeFilter = 'All';
+
+        function renderProjects() {
+            const grid = document.getElementById('projectsGrid');
+            const searchInput = document.getElementById('projectSearch');
+            const searchVal = escapeHTML(searchInput.value.toLowerCase().trim());
+            
+            const filtered = PORTFOLIO_DATA.projects.filter(p => {
+                const matchesFilter = (activeFilter === 'All') || (p.category === activeFilter);
+                const matchesSearch = p.title.toLowerCase().includes(searchVal) || 
+                                      p.tools.some(t => t.toLowerCase().includes(searchVal));
+                return matchesFilter && matchesSearch;
+            });
+
+            grid.innerHTML = filtered.map(p => `
+                <div onclick="openModal('${escapeHTML(p.id)}')" class="glass-panel rounded-xl overflow-hidden cursor-pointer group transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="h-32 bg-gradient-to-r ${escapeHTML(p.bgGradient)} p-4 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute right-2 bottom-2 text-white/10 text-7xl font-black">
+                            <i class="${escapeHTML(p.icon)}"></i>
+                        </div>
+                        <div class="flex justify-between items-center relative z-10">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider font-semibold bg-black/40 text-white backdrop-blur-md">
+                                ${escapeHTML(p.category)}
+                            </span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium ${p.status === 'Done' ? 'bg-emerald-500/80 text-white' : 'bg-blue-500/80 text-white'} backdrop-blur-md">
+                                ${escapeHTML(p.status)}
+                            </span>
+                        </div>
+                        <h3 class="text-white font-bold text-base leading-snug group-hover:text-cyan-200 transition-colors relative z-10">
+                            ${escapeHTML(p.title)}
+                        </h3>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                            ${escapeHTML(p.problem)}
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 pt-2 border-t border-slate-800">
+                            ${p.tools.map(t => `<span class="px-2 py-0.5 bg-slate-800 border border-slate-700/60 rounded text-[10px] text-slate-300 font-mono">${escapeHTML(t)}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            renderFilterTags();
+        }
+
+        function renderFilterTags() {
+            const categories = ['All', ...new Set(PORTFOLIO_DATA.projects.map(p => p.category))];
+            const container = document.getElementById('projectFilterTags');
+            
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setFilter('${escapeHTML(cat)}')" class="px-2.5 py-1 rounded-md text-xs font-mono transition-all ${activeFilter === cat ? 'bg-brand-600 text-white font-bold shadow' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">
+                    ${escapeHTML(cat)}
+                </button>
+            `).join('');
+        }
+
+        function setFilter(cat) {
+            activeFilter = cat;
+            renderProjects();
+        }
+
+        function renderSkills() {
+            const grid = document.getElementById('skillsGrid');
+            grid.innerHTML = PORTFOLIO_DATA.skills.map(s => `
+                <div class="glass-panel p-3.5 rounded-xl flex items-center space-x-3 hover:border-brand-500/40 transition-all">
+                    <div class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-brand-400 text-base flex-shrink-0">
+                        <i class="fa-solid ${escapeHTML(s.icon)}"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <div class="text-xs font-bold text-white truncate">${escapeHTML(s.name)}</div>
+                        <div class="text-[10px] text-slate-400 truncate">${escapeHTML(s.category)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderCertificates() {
+            const grid = document.getElementById('certGrid');
+            grid.innerHTML = PORTFOLIO_DATA.certificates.map(c => `
+                <div class="glass-panel p-4 rounded-xl flex items-start justify-between space-x-3">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-slate-800/80 flex items-center justify-center text-cyan-400 text-sm mt-0.5">
+                            <i class="fa-solid ${escapeHTML(c.icon)}"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-white leading-tight">${escapeHTML(c.title)}</h4>
+                            <p class="text-[11px] text-slate-400 mt-0.5">${escapeHTML(c.issuer)}</p>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono border ${escapeHTML(c.badgeColor)} flex-shrink-0">
+                        ${escapeHTML(c.status)}
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function openModal(projectId) {
+            const p = PORTFOLIO_DATA.projects.find(proj => proj.id === projectId);
+            if(!p) return;
+
+            document.getElementById('modalTitle').innerText = p.title;
+            document.getElementById('modalProblem').innerText = p.problem;
+            
+            document.getElementById('modalBadges').innerHTML = `
+                <span class="px-2 py-0.5 bg-brand-500/20 text-brand-300 border border-brand-500/30 rounded text-xs font-mono">${escapeHTML(p.category)}</span>
+                <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded text-xs font-mono">${escapeHTML(p.status)}</span>
+                ${p.tools.map(t => `<span class="px-2 py-0.5 bg-slate-800 text-slate-300 border border-slate-700 rounded text-xs font-mono">${escapeHTML(t)}</span>`).join('')}
+            `;
+
+            document.getElementById('modalSolution').innerHTML = p.solution.map(s => `<li>${escapeHTML(s)}</li>`).join('');
+            document.getElementById('modalResult').innerHTML = p.result.map(r => `<li>${escapeHTML(r)}</li>`).join('');
+            document.getElementById('modalLearnings').innerHTML = p.learnings.map(l => `<li>${escapeHTML(l)}</li>`).join('');
+
+            document.getElementById('projectModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').classList.add('hidden');
+        }
+
+        function copyContactEmail() {
+            const fullEmail = `${CONTACT_CFG.user}@${CONTACT_CFG.domain}`;
+            const btnText = document.getElementById('emailText');
+            
+            const showSuccess = () => {
+                const original = btnText.innerText;
+                btnText.innerText = "E-Mail kopiert!";
+                setTimeout(() => { btnText.innerText = original; }, 2000);
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(fullEmail).then(showSuccess).catch(() => fallbackCopy(fullEmail, showSuccess));
+            } else {
+                fallbackCopy(fullEmail, showSuccess);
+            }
+        }
+
+        function fallbackCopy(text, callback) {
+            try {
+                const tempInput = document.createElement("input");
+                tempInput.value = text;
+                tempInput.style.position = "fixed";
+                tempInput.style.opacity = "0";
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+                if (callback) callback();
+            } catch (err) {
+                console.error("Copy failed safely:", err);
+            }
+        }
+
+        function toggleTerminalModal() {
+            const modal = document.getElementById('terminalModal');
+            modal.classList.toggle('hidden');
+            if(!modal.classList.contains('hidden')) {
+                document.getElementById('terminalInput').focus();
+            }
+        }
+
+        function handleTerminalKey(e) {
+            if (e.key === 'Enter') {
+                const input = document.getElementById('terminalInput');
+                const rawCmd = input.value.trim();
+                const cmd = rawCmd.toLowerCase();
+                const output = document.getElementById('terminalOutput');
+
+                const cmdLine = document.createElement('p');
+                cmdLine.className = 'text-cyan-300';
+                cmdLine.innerText = `PS C:\\Users\\Alessandro> ${rawCmd}`;
+                output.appendChild(cmdLine);
+
+                const response = document.createElement('div');
+                response.className = 'text-slate-300 pl-2';
+
+                switch(cmd) {
+                    case 'help':
+                        response.innerHTML = `
+                            <p>Verfügbare Befehle:</p>
+                            <p class="text-amber-400">  skills     <span class="text-slate-500">- Zeigt IT Skills an</span></p>
+                            <p class="text-amber-400">  projects   <span class="text-slate-500">- Liste der Automatisierungsprojekte</span></p>
+                            <p class="text-amber-400">  eta        <span class="text-slate-500">- Motivation für ETA SA Grenchen</span></p>
+                            <p class="text-amber-400">  clear      <span class="text-slate-500">- Bildschirminhalt leeren</span></p>
+                            <p class="text-amber-400">  exit       <span class="text-slate-500">- Terminal schliessen</span></p>
+                        `;
+                        break;
+                    case 'skills':
+                        response.innerHTML = PORTFOLIO_DATA.skills.map(s => `<div>• <strong class="text-white">${escapeHTML(s.name)}</strong> (${escapeHTML(s.category)})</div>`).join('');
+                        break;
+                    case 'projects':
+                        response.innerHTML = PORTFOLIO_DATA.projects.map(p => `<div>• <strong class="text-cyan-400">${escapeHTML(p.title)}</strong> [${escapeHTML(p.category)}]</div>`).join('');
+                        break;
+                    case 'eta':
+                        response.innerText = "ETA SA Grenchen ist der Inbegriff von Schweizer Präzision. Als IT System Engineer möchte ich dazu beitragen, dass die zugrunde liegenden IT-Systeme genauso zuverlässig laufen wie ein Schweizer Uhrwerk!";
+                        response.className += " text-emerald-400";
+                        break;
+                    case 'clear':
+                        output.innerHTML = '';
+                        input.value = '';
+                        return;
+                    case 'exit':
+                        toggleTerminalModal();
+                        input.value = '';
+                        return;
+                    default:
+                        response.innerText = `Unbekannter Befehl: '${rawCmd}'. Tippe 'help' für Hilfe.`;
+                }
+
+                output.appendChild(response);
+                input.value = '';
+                output.scrollTop = output.scrollHeight;
+            }
+        }
+
+        // Initialize on DOM load
+        window.onload = function() {
+            renderProjects();
+            renderSkills();
+            renderCertificates();
+        };
+    </script>
+</body>
+</html>
