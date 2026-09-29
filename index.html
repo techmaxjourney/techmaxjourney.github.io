@@ -159,8 +159,12 @@
                             <span>Ausbildung zum <strong>ICT Power-User & Professional SIZ</strong></span>
                         </div>
                         <div class="flex items-start space-x-2 text-xs sm:text-sm text-slate-300">
+                            <i class="fa-solid fa-graduation-cap text-brand-400 mt-1"></i>
+                            <span>Diplom: <strong>ICT Power-User SIZ</strong></span>
+                        </div>
+                        <div class="flex items-start space-x-2 text-xs sm:text-sm text-slate-300">
                             <i class="fa-solid fa-server text-brand-400 mt-1"></i>
-                            <span>Praxis in <strong>Active Directory, VMware & Scripting</strong></span>
+                            <span>Praxis in <strong>Active Directory, Virtualisierung & Scripting</strong></span>
                         </div>
                         <div class="flex items-start space-x-2 text-xs sm:text-sm text-slate-300">
                             <i class="fa-solid fa-gears text-brand-400 mt-1"></i>
@@ -432,7 +436,7 @@
                         "Erstellung von Outlook-Mail-Drafts zur manuellen Freigabe."
                     ],
                     result: [
-                        "~70–80% Zeitsperre im Workflow erzielt.",
+                        "~70–80% Zeitersparnis im Workflow erzielt.",
                         "Deutliche Reduktion manueller Eingabefehler.",
                         "Standardisierter, beliebig skalierbarer Prozess.",
                         "Verbesserte Sicherheit durch Draft-basierte Freigabekontrolle."
@@ -510,24 +514,46 @@
                 },
                 {
                     id: "homelab-2025",
-                    title: "Windows Server 2025 – Domain & File Server Homelab (v1)",
+                    title: "Windows Server 2025 – Domain & File Server Homelab",
                     category: "Environment",
-                    status: "Hands-On Lab",
-                    tools: ["VMware Hypervisor", "Active Directory", "DNS/DHCP", "Group Policy"],
+                    status: "Done",
+                    tools: ["VMware Hypervisor", "Active Directory", "Group Policy"],
                     icon: "fa-brands fa-windows",
                     bgGradient: "from-blue-500 to-indigo-900",
                     problem: "Notwendigkeit einer sicheren Testumgebung zur praxisnahen Vertiefung von Active Directory, GPOs und Multi-OS Vernetzung.",
                     solution: [
                         "Aufbau einer virtualisierten Umgebung mit VMware Workstation/Hypervisor 2.",
-                        "Konfiguration von Windows Server 2025 als Domain Controller mit AD DS, DNS und DHCP.",
+                        "Konfiguration von Windows Server 2025 als Domain Controller mit AD DS.",
                         "Einrichtung von Berechtigungsstrukturen, File Shares und Gruppenrichtlinien (GPO)."
                     ],
                     result: [
                         "Vollfunktionsfähiges Test-Lab zur Simulation echter Unternehmensnetzwerke.",
-                        "Praxisnahes Troubleshooting von Zertifikaten, DNS-Auflösungen und Berechtigungen."
+                        "Einbindung eines W11 Clients für praktische Tests von AD-Policies und Berechtigungen.",
                     ],
                     learnings: [
-                        "Tiefes Verständnis von AD-Hierarchien, DNS-Zonen und Rechtevergabe."
+                        "Tiefes Verständnis von AD-Hierarchien und Rechtevergabe."
+                    ]
+                },
+                {
+                    id: "homelab-2022",
+                    title: "Windows Server 2022 – SIZ Homelab",
+                    category: "Environment",
+                    status: "In Progress",
+                    tools: ["MS Hyper-V Hypervisor", "Active Directory", "DNS/DHCP", "Group Policy"],
+                    icon: "fa-brands fa-windows",
+                    bgGradient: "from-blue-500 to-indigo-900",
+                    problem: "Notwendigkeit einer sicheren Testumgebung zur praxisnahen Vertiefung von Active Directory, GPOs und Multi-OS Vernetzung.",
+                    solution: [
+                        "Aufbau einer virtualisierten Umgebung mit VMware Workstation/Hypervisor 2.",
+                        "Konfiguration von Windows Server 2022 als Domain Controller mit AD DS.",
+                        "Einrichtung von Berechtigungsstrukturen, File Shares und Gruppenrichtlinien (GPO)."
+                    ],
+                    result: [
+                        "Vollfunktionsfähiges Test-Lab zur Simulation echter Unternehmensnetzwerke.",
+                        "Einbindung eines W11 Clients für praktische Tests von AD-Policies und Berechtigungen.",
+                    ],
+                    learnings: [
+                        "Tiefes Verständnis von AD-Hierarchien und Rechtevergabe."
                     ]
                 }
             ],
